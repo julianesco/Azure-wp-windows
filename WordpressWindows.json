@@ -39,7 +39,7 @@
         },
         "modulesUrl": {
             "type": "string",
-            "defaultValue": "https://github.com/MicrosoftDocs/mslearn-choose-compute-provisioning/raw/master/Webserver.zip",
+            "defaultValue": "https://raw.githubusercontent.com/julianesco/Azure-wp-windows/master/Extensions/WebServer.zip",
             "metadata": {
                 "description": "URL for the DSC configuration module."
             }
@@ -411,7 +411,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.DBforMariaDB/servers', parameters('servers_wpdbsrv_name'))]",
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_publicIP_name'))]",
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_wplinux_name'))]"
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_wpwin_name'))]"
             ],
             "properties": {
                 "startIpAddress": "[reference(parameters('publicIPAddresses_publicIP_name')).ipAddress]",
@@ -424,7 +424,9 @@
             "apiVersion": "2019-07-01",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachines_wpwin_name'))]"
+                "[resourceId('Microsoft.DBforMariaDB/servers', parameters('servers_wpdbsrv_name'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_publicIP_name'))]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_wpwin_name'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Powershell",
